@@ -18,8 +18,8 @@ $user = $userManager->createUser($userCommand);
 $taskRepository = new TaskRepository();
 $taskManager = new TaskManager($taskRepository);
 
-$taskCommand = new CreateTaskCommand($user->getId(), 'Test', 'Test', '2023-01-01 00:00:00');
-$taskCommand2 = new CreateTaskCommand($user->getId(), 'Test2', 'Test2', '2023-01-01 00:00:00');
+$taskCommand = new CreateTaskCommand($user->getId(), 'Test', 'Test', '2025-11-01 00:00:00');
+$taskCommand2 = new CreateTaskCommand($user->getId(), 'Test2', 'Test2', '2025-11-11 00:00:00');
 $taskManager->createTask($taskCommand);
 $taskManager->createTask($taskCommand2);
 

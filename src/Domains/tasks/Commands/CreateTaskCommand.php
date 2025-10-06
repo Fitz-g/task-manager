@@ -6,31 +6,22 @@ class CreateTaskCommand {
         private string $createdBy,
         private string $title,
         private string $description,
-    ){
-        $this->validate();
-    }
+        private string $dueDate,
+    ) { }
 
     public function getUserId(): string {
-        return $this->createdBy ?? throw new \InvalidArgumentException('L\'utilisateur est requis');
+        return $this->createdBy;
     }
 
     public function getTitle(): string {
-        return $this->title ?? throw new \InvalidArgumentException('Le titre de la tâche est requis');
+        return $this->title;
     }
 
     public function getDescription(): string {
-        return $this->description ?? throw new \InvalidArgumentException('La description de la tâche est requise');
+        return $this->description;
     }
 
-    private function validate() {
-        if (empty($this->title)) {
-            throw new \InvalidArgumentException('Le titre de la tâche est requis');
-        }
-        if (empty($this->description) === null) {
-            throw new \InvalidArgumentException('La description de la tâche est requise');
-        }
-        if (empty($this->createdBy) === null) {
-            throw new \InvalidArgumentException('L\'utilisateur est requis');
-        }
+    public function getDueDate(): string {
+        return $this->dueDate;
     }
 }

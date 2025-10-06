@@ -11,11 +11,13 @@ class Task {
     private string $title;
     private string $description;
     private string $createdAt;
+    private string $dueDate;
     private Comment $comments;
 
-    public function __construct(string $createdBy, string $title, string $description) {
+    public function __construct(string $createdBy, string $title, string $description, string $dueDate) {
         $this->id = uniqid();
         $this->createdAt = (new DateTime('now'))->format('Y-m-d H:i:s');
+        $this->dueDate = $dueDate;
         $this->createdBy = $createdBy;
         $this->title = $title;
         $this->description = $description;
@@ -23,6 +25,10 @@ class Task {
 
     public function getTitle(): string {
         return $this->title;
+    }
+
+    public function getDueDate(): string {
+        return $this->dueDate;
     }
 
     public function getDescription(): string {
