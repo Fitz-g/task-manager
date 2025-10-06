@@ -8,7 +8,6 @@ class TaskRepository implements ITaskRepository {
 
     public function save(Task $task): void {
         $this->tasks[] = $task;
-        echo "Tâche crééee\n";
     }
 
     public function getTasks(): array {
