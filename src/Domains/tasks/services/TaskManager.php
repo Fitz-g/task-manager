@@ -21,6 +21,6 @@ class TaskManager {
     public function createTask(CreateTaskCommand $command): Task {
         $task = new Task($command->getUserId(), $command->getTitle(), $command->getDescription(), (new DateTime('tomorrow'))->format('Y-m-d H:i:s'));
         $this->iTaskRepository->save($task);
-        return $task;   
+        return $task;
     }
 }
