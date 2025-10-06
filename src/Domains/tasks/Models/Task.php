@@ -14,6 +14,7 @@ class Task {
     private Comment $comments;
 
     public function __construct(string $createdBy, string $title, string $description, string $createdAt) {
+        $this->id = uniqid();
         $this->title = $title;
         $this->description = $description;
         $this->createdBy = $createdBy;
