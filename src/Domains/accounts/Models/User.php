@@ -11,9 +11,9 @@ class User
     private string $fullName;
     private string $email;
 
-    public function __construct(string $id, string $fullName, string $email)
+    public function __construct(string $fullName, string $email)
     {
-        $this->id = $id;
+        $this->id = uniqid();
         $this->fullName = $fullName;
         $this->email = $email;
     }

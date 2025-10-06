@@ -2,27 +2,25 @@
 
 namespace App\Domains\tasks\services;
 
+use App\Domains\tasks\Commands\CreateTaskCommand;
 use App\Domains\tasks\Models\Task;
-
+use App\Domains\tasks\Repositories\ITaskRepository;
+use DateTime;
 
 class TaskManager {
-    private array $tasks = [];
+    private ITaskRepository $iTaskRepository;
+
+    public function __construct(ITaskRepository $iTaskRepository) {
+        $this->iTaskRepository = $iTaskRepository;
+    }
 
     public function getTasks() {
-        return $this->tasks;
+        return $this->iTaskRepository->getTasks();
     }
 
-    public function createTask($userId, $title, $description, $createdAt): Task {
-        $task = new Task($userId, $title, $description, $createdAt);
-        $this->tasks[] = $task;
+    public function createTask(CreateTaskCommand $command): Task {
+        $task = new Task($command->getTitle(), $command->getDescription(), (new DateTime('now'))->format('Y-m-d H:i:s'));
+        $this->iTaskRepository->save($task);
         return $task;
-    }
-
-    public function deleteTask($id) {
-        foreach ($this->tasks as $key => $task) {
-            if ($task->getId() === $id) {
-                unset($this->tasks[$key]);
-            }
-        }
     }
 }

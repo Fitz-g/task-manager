@@ -13,12 +13,12 @@ class Task {
     private string $createdAt;
     private Comment $comments;
 
-    public function __construct(string $createdBy, string $title, string $description, string $createdAt) {
+    public function __construct(string $createdBy, string $title, string $description) {
         $this->id = uniqid();
+        $this->createdAt = (new DateTime('now'))->format('Y-m-d H:i:s');
+        $this->createdBy = $createdBy;
         $this->title = $title;
         $this->description = $description;
-        $this->createdBy = $createdBy;
-        $this->createdAt = $createdAt;
     }
 
     public function getTitle(): string {
@@ -35,5 +35,13 @@ class Task {
 
     public function getCreatedBy(): string {
         return $this->createdBy;
+    }
+
+    public function getId(): string {
+        return $this->id;
+    }
+
+    public function getCreatedAt(): string {
+        return $this->createdAt;
     }
 }
