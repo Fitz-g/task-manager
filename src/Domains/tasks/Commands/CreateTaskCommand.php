@@ -1,9 +1,7 @@
 <?php
 namespace App\Domains\tasks\Commands;
 
-use App\Domains\tasks\Exceptions\TaskDescriptionEmptyException;
-use App\Domains\tasks\Exceptions\TaskDueDateInPastException;
-use App\Domains\tasks\Exceptions\TaskTitleEmptyException;
+use App\Domains\tasks\Exceptions\TaskException;
 use DateTime;
 
 class CreateTaskCommand {
@@ -34,13 +32,13 @@ class CreateTaskCommand {
 
     private function validate() {
         if (empty($this->getTitle())) {
-            throw new TaskTitleEmptyException('Le titre de la tâche est requis');
+            throw new TaskException('Le titre de la tâche est requis');
         }
         if (empty($this->getDescription()) === null) {
-            throw new TaskDescriptionEmptyException('La description de la tâche est requise');
+            throw new TaskException('La description de la tâche est requise');
         }
         if ($this->getDueDate() < (new DateTime('now'))->format('Y-m-d H:i:s')) {
-            throw new TaskDueDateInPastException('La date d\'échéance ne peut être dans le passé.');
+            throw new TaskException('La date d\'échéance ne peut être dans le passé.');
         }
     }
 }

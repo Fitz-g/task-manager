@@ -12,10 +12,13 @@ class UserManager {
         $this->userRepository = $userRepository;
     }
     public function createUser(CreateUserCommand $command) {
-        $user = new User($command->getFullName(), $command->getEmail());
-        $this->userRepository->save($user);
-        echo "Utilisateur créé : " . $user->getFullName() . "\n";
-        return $user;
+        try {
+            $user = new User($command->getFullName(), $command->getEmail());
+            $this->userRepository->save($user);
+            return $user;
+        } catch (\Exception $e) {
+            throw "Une erreur est survenue lors de la créaction de l'utilisateur : {$e->getMessage()}";
+        }
     }
 
     public function getAllUsers() {

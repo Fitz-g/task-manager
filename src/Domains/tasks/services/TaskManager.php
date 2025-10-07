@@ -19,8 +19,12 @@ class TaskManager {
     }
 
     public function createTask(CreateTaskCommand $command): Task {
-        $task = new Task($command->getUserId(), $command->getTitle(), $command->getDescription(), (new DateTime('tomorrow'))->format('Y-m-d H:i:s'));
-        $this->iTaskRepository->save($task);
-        return $task;
+        try {
+            $task = new Task($command->getUserId(), $command->getTitle(), $command->getDescription(), $command->getDueDate());
+            $this->iTaskRepository->save($task);
+            return $task;
+        } catch (\Exception $e) {
+            throw "Une erreur est survenue : {$e->getMessage()}";
+        }
     }
 }

@@ -1,9 +1,9 @@
 <?php
 namespace App\Domains\accounts\Commands;
 
-use App\Domains\accounts\Exceptions\UserEmailEmptyException;
 use App\Domains\accounts\Exceptions\UserEmailInvalidException;
-use App\Domains\accounts\Exceptions\UserFullNameEmptyException;
+use App\Domains\accounts\Exceptions\UserException;
+
 
 class CreateUserCommand {
     public function __construct(
@@ -23,13 +23,13 @@ class CreateUserCommand {
 
     private function validate() {
         if (empty($this->getFullName())) {
-            throw new UserFullNameEmptyException('Le nom de l\'utilisateur est requis');
+            throw new UserException('Le nom de l\'utilisateur est requis');
         }
         if (empty($this->getEmail())) {
-            throw new UserEmailEmptyException('L\'email de l\'utilisateur est requis');
+            throw new UserException('L\'email de l\'utilisateur est requis');
         }
         if (filter_var($this->getEmail(), FILTER_VALIDATE_EMAIL) === false) {
-            throw new UserEmailInvalidException('L\'email de l\'utilisateur n\'est pas valide');
+            throw new UserException('L\'email de l\'utilisateur n\'est pas valide');
         }
     }
 }
