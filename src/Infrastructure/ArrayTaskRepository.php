@@ -3,7 +3,7 @@ namespace App\Infrastructure;
 
 use App\Domain\tasks\Models\Task;
 
-class TaskRepository implements TaskRepositoryInterface {
+class ArrayTaskRepository implements TaskRepositoryInterface {
     private array $tasks = [];
 
     public function save(Task $task): void {
