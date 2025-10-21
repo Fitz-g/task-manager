@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Domains\accounts\Models;
+namespace App\Domain\accounts\Models;
 
 class Comment {
     public string $id;

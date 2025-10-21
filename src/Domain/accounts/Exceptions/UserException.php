@@ -1,7 +1,7 @@
 <?php
-namespace App\Domains\accounts\Exceptions;
+namespace App\Domain\accounts\Exceptions;
 
-use App\Domains\exceptions\DomainException;
+use App\Domain\exceptions\DomainException;
 
 class UserException extends DomainException {
     public function __construct(string $message = "L'email de l'utilisateur est requis.", int $code = 400) {

@@ -1,12 +1,14 @@
 <?php 
 
-namespace App\Domains\tasks\Models;
+namespace App\Domain\tasks\Models;
 
-use App\Domains\accounts\Models\Comment;
+use App\Application\ports\tasks\TaskInterface;
+use App\Domain\accounts\Models\Comment;
 use DateTime;
 
-class Task {
-    private string $id;
+class Task implements TaskInterface
+{
+    private int $id;
     private string $createdBy;
     private string $title;
     private string $description;
@@ -14,8 +16,8 @@ class Task {
     private string $dueDate;
     private Comment $comments;
 
-    public function __construct(string $createdBy, string $title, string $description, string $dueDate) {
-        $this->id = uniqid();
+    public function __construct(int $id, string $createdBy, string $title, string $description, string $dueDate) {
+        $this->id = $id;
         $this->createdAt = (new DateTime('now'))->format('Y-m-d H:i:s');
         $this->dueDate = $dueDate;
         $this->createdBy = $createdBy;

@@ -1,9 +1,9 @@
 <?php
-namespace App\Domains\tasks\Repositories;
+namespace App\Infrastructure;
 
-use App\Domains\tasks\Models\Task;
+use App\Domain\tasks\Models\Task;
 
-class TaskRepository implements ITaskRepository {
+class TaskRepository implements TaskRepositoryInterface {
     private array $tasks = [];
 
     public function save(Task $task): void {

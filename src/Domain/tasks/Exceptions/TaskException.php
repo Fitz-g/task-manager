@@ -1,7 +1,7 @@
 <?php
-namespace App\Domains\tasks\Exceptions;
+namespace App\Domain\tasks\Exceptions;
 
-use App\Domains\exceptions\DomainException;
+use App\Domain\exceptions\DomainException;
 
 class TaskException extends DomainException {
     public function __construct(string $message = "Une erreur est survenue dans la création de la tâche.", int $code = 400) {
