@@ -7,7 +7,7 @@ use Osmose\Task\Domain\Exception\TaskException;
 
 class Task
 {
-    private int $id;
+    private string $id;
     private string $userId;
     private string $title;
     private string $description;
@@ -16,7 +16,7 @@ class Task
     private ?array $comments = [];
 
     public function __construct(
-        int $id,
+        string $id,
         string $userId,
         string $title,
         string $description,

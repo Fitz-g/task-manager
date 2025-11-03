@@ -7,7 +7,7 @@ use DateTimeImmutable;
 final readonly class CreateTaskCommand
 {
     public function __construct(
-        public readonly int $id,
+        public readonly string $id,
         public readonly string $userId,
         public readonly string $title,
         public readonly string $description,

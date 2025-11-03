@@ -15,7 +15,7 @@ class ArrayTaskRepository implements TaskRepositoryInterface {
 
     public function findById(string $taskId): Task
     {
-        if(empty($this->tasks[$taskId])) {
+        if(!isset($this->tasks[$taskId])) {
             throw new TaskNotFoundException("Tâche avec ID {$taskId} non trouvée.");
         }
         return $this->tasks[$taskId];
