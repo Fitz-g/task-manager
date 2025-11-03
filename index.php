@@ -1,28 +1,44 @@
 <?php
+
+use Osmose\Account\Application\UseCase\CreateUser\CreateUserCommand;
+use Osmose\Account\Application\UseCase\CreateUser\CreateUserHandler;
+use Osmose\Account\Infrastructure\Persistence\InMemory\ArrayUserRepository;
+use Osmose\Task\Application\UseCase\CreateTask\CreateTaskCommand;
+use Osmose\Task\Application\UseCase\CreateTask\CreateTaskHandler;
+use Osmose\Task\Infrastructure\Persistence\InMemory\ArrayTaskRepository;
+
 include "vendor/autoload.php";
-
-use App\Application\services\TaskManager;
-use App\Domain\accounts\Commands\CreateUserCommand;
-
-use App\Domain\accounts\services\UserManager;
-use App\Domain\tasks\Commands\CreateTaskCommand;
-use App\Infrastructure\ArrayUserRepository;
-use App\Infrastructure\TaskRepository;
 
 
 $userRepository = new ArrayUserRepository();
-$userManager = new UserManager($userRepository);
+$createUserHandler = new CreateUserHandler($userRepository);
 
-$userCommand = new CreateUserCommand('12', 'Test', 'xG4yO@example.com');
-$user = $userManager->createUser($userCommand);
+$userCommand = new CreateUserCommand('user-1', 'Test', 'xG4yO@example.com');
+$createUserHandler->handle($userCommand);
 
-$taskRepository = new TaskRepository();
-$taskManager = new TaskManager($taskRepository);
+$taskRepository = new ArrayTaskRepository();
+$createTaskHandler = new CreateTaskHandler($taskRepository);
 
-$taskCommand = new CreateTaskCommand(1, $user->getId(), 'Test', 'Test', '2025-11-01 00:00:00');
-$taskCommand2 = new CreateTaskCommand(2, $user->getId(), 'Test2', 'Test2', '2025-11-11 00:00:00');
 
-$taskManager->createTask($taskCommand);
-$taskManager->createTask($taskCommand2);
+$taskCommand = new CreateTaskCommand(
+    id: 'task-1',
+    userId: 'user-1',
+    title: 'task-1',
+    description: 'description-1',
+    dueDate: new DateTimeImmutable("+2 days"),
+    comments: ['Commentaire-1', 'Commentaire-2']
+);
+$taskCommand2 = new CreateTaskCommand(
+    id: 'task-2',
+    userId: 'user-2',
+    title: 'task-2',
+    description: 'description-2',
+    dueDate: new DateTimeImmutable("+2 week"),
+    comments: []
+);
 
-dd($taskManager->getTasks(), $userManager->getAllUsers());
+$createTaskHandler->handle($taskCommand);
+$createTaskHandler->handle($taskCommand2);
+
+
+dd('Ok');
